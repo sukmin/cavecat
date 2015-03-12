@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class BoardServlet extends HttpServlet {
+	private static final long serialVersionUID = 4251285399811752982L;
 
 	@Override
 	public void destroy() {
@@ -23,7 +24,7 @@ public class BoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().println("±¹³» ½ºÇÁ¸µ ´Ù¼¸¼Õ°¡¶ô ¾È¿¡ µé¾î°¡´Â °í¼ö°¡ 8Ãş¿¡ ÀÖ´Ù.");
+		resp.getWriter().println("4ì¸µ ë¬´ê· ì‹¤ì—ëŠ” ë­”ê°€ íŠ¹ë³„í•œ ê²ƒì´ ìˆë‹¤.");
 	}
 
 }
