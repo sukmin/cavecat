@@ -32,6 +32,21 @@
 		
 		<!--  최초접속자의 로딩시간을 없애기 위해 1로 설정. 만약 1로 설정된 서블릿이 더 있다면 web.xml에 정의된 순서대로 로딩 -->
 		<load-on-startup>1</load-on-startup>
+		
+		<!-- 파일업로드를 하기 위해 추가 서블릿3.0부터 지원. 기존에는 아파치 파일업로드사용 -->
+		<!-- 설정순서가 틀리면 에러. location, max-file-size,max-request-size,file-size-threshold 순서로 해라 -->
+		<multipart-config>
+			<!-- 파일이 파일사이즈임계값을 넘을경우 메모리로 받지 않고 파일로 임시저장하는데 임시저장되는 경로. 디폴트로 있어 지정안해도 됨 -->
+			<!-- <location>C:\</location> -->
+			<!-- 업로드파일사이즈 제한. 여기서는 20메가로 제한 -->
+			<max-file-size>20971520</max-file-size>
+			<!--  파일사이즈와 관계없이 전체 요청의 크기를 제한. 여기서는 40메가로 제한 -->
+			<max-request-size>41943040</max-request-size>
+			<!-- 파일사이즈임계값은 해당 크기가 넘어가면 메모리가 아닌 파일로 임시저장. 여기서는 5메가로 설정함 -->
+			<file-size-threshold>5242880</file-size-threshold>
+		</multipart-config>
+		
+		
 	</servlet>
 
 	<servlet-mapping>
