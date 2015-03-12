@@ -5,10 +5,33 @@
 	version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
 	
 	<display-name>cavecat</display-name>
+	
+	<!-- context-param을 사용하여 정의하면 모든 서블릿이 값을 공유하게 된다. -->
+	<context-param>
+		<param-name>movie</param-name>
+		<param-value>man from earth</param-value>
+	</context-param>
+	<context-param>
+		<param-name>game</param-name>
+		<param-value>star craft</param-value>
+	</context-param>
 
 	<servlet>
 		<servlet-name>board</servlet-name>
 		<servlet-class>com.cavecat.board.BoardServlet</servlet-class>
+		
+		<!-- 다른 서블릿과 공유되지 않는 값을 설정 -->
+		<init-param>
+			<param-name>bookStore</param-name>
+			<param-value>yes24</param-value>
+		</init-param>
+		<init-param>
+			<param-name>gameSite</param-name>
+			<param-value>pgr21</param-value>
+		</init-param>
+		
+		<!--  최초접속자의 로딩시간을 없애기 위해 1로 설정. 만약 1로 설정된 서블릿이 더 있다면 web.xml에 정의된 순서대로 로딩 -->
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
