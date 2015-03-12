@@ -22,9 +22,10 @@ public class BoardServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().println("4층 무균실에는 뭔가 특별한 것이 있다.");
+		
+		String html = "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>%s</title></head><body>%s</body></html>";
+		resp.getWriter().println(String.format(html, "무균실", "4층 무균실에는 뭔가 특별한 것이 있다."));
 	}
 
 }
