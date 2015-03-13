@@ -54,5 +54,20 @@
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 해당 패턴의 jsp에 공통으로 적용할 속성 지정. 생략해도 상관없으나 지정되는 순서는 지켜야 한다. ex. url-pattern이 page-encoding보다 먼저 나와야 한다. -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+			<!-- scripting-invalid가 true면 jsp에서 java 로직을 허용하지 않는다. -->
+			<scripting-invalid>false</scripting-invalid>
+			<!-- 해당패턴의 jsp에 공통으로 인클루드시킬 파일 -->
+			<include-prelude>/WEB-INF/jsp/base.jsp</include-prelude>
+			<!-- jsp태그가 생성한 공백을 지운다. -->
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+			<default-content-type>text/html</default-content-type>
+		</jsp-property-group>
+	</jsp-config>
+	
 </web-app>
 
