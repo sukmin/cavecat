@@ -45,8 +45,6 @@
 			<!-- 파일사이즈임계값은 해당 크기가 넘어가면 메모리가 아닌 파일로 임시저장. 여기서는 5메가로 설정함 -->
 			<file-size-threshold>5242880</file-size-threshold>
 		</multipart-config>
-		
-		
 	</servlet>
 
 	<servlet-mapping>

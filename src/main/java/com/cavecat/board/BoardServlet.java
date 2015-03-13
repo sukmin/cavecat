@@ -6,7 +6,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,19 +42,17 @@ public class BoardServlet extends HttpServlet {
 		session.setAttribute("apple", "jobs");
 		System.out.println(session.getId());
 
-		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
 		requestDispatcher.forward(req, resp);
-		
-		
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		System.out.println(req.getParameter("testText"));
 		System.out.println(req.getPart("testFile").getName());
+		System.out.println(req.getPart("testFile").getSubmittedFileName());
 		
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
+		requestDispatcher.forward(req, resp);
 	}
-
 }
