@@ -37,6 +37,7 @@
 	</dependency>
 	
 	<!-- 다른 버전을 의존하고 있기 때문에 exclusion으로 제외 -->
+	<!-- glassfish에 있는 것을 쓰는 이유 : http://www.murraywilliams.com/2011/11/running-jstl-1-2-on-tomcat-7-using-maven/ -->
 	<dependency>
 		<groupId>org.glassfish.web</groupId>
 		<artifactId>javax.servlet.jsp.jstl</artifactId>

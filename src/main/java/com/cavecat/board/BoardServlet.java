@@ -10,6 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 4251285399811752982L;
@@ -37,6 +38,10 @@ public class BoardServlet extends HttpServlet {
 		ServletConfig servletConfig = this.getServletConfig();
 		System.out.println(servletConfig.getInitParameter("bookStore"));
 		System.out.println(servletConfig.getInitParameter("gameSite"));
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("apple", "jobs");
+		System.out.println(session.getId());
 
 		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
