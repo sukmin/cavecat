@@ -1,6 +1,8 @@
 package com.cavecat.board;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 4251285399811752982L;
+	
+	
 
 	@Override
 	public void destroy() {
