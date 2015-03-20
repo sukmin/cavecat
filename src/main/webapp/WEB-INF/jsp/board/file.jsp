@@ -12,5 +12,7 @@
 		<input type="file" name="testFile"><br>
 		<input type='submit'><br>
 	</form>
+	
+	<a href="<c:url value="/login?logout" />">Logout</a>	
 </body>
 </html>

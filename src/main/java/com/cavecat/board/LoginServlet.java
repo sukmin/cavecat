@@ -31,6 +31,12 @@ public class LoginServlet extends HttpServlet {
 		// 톰캣을 셧다운할 때에 현재 있는 모든 세션이 저장됩니다.
 		// 기본설정은 true.
 		HttpSession session = req.getSession();
+		
+		if( req.getParameter("logout") != null ){
+			session.invalidate();
+			resp.sendRedirect("/board/board");
+			return;
+		}
 
 		// 로그인이 이미 되어있는 경우
 		if (session.getAttribute("id") != null) {
