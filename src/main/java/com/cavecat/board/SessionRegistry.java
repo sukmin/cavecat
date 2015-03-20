@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 public class SessionRegistry {
-
   private static final Map<String, HttpSession> SESSIONS = new HashMap<>();
 
   public static void addSession(HttpSession session) {
@@ -20,22 +19,20 @@ public class SessionRegistry {
 
       SESSIONS.remove(oldSessionId);
       addSession(session);
-
     }
   }
-  
-  public static void removeSession(HttpSession session){
+
+  public static void removeSession(HttpSession session) {
     SESSIONS.remove(session.getId());
   }
-  
-  public static List<HttpSession> getAllSessions(){
+
+  public static List<HttpSession> getAllSessions() {
     return new ArrayList<>(SESSIONS.values());
   }
-  
-  public static int getNumberOfSessions(){
+
+  public static int getNumberOfSessions() {
     return SESSIONS.size();
   }
-  
-  private SessionRegistry() {};
 
+  private SessionRegistry() {};
 }

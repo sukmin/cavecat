@@ -32,7 +32,7 @@ public class BoardServlet extends HttpServlet {
 
     // 로그인이 되어있지 않은 경우
     if (session.getAttribute("id") == null) {
-      resp.sendRedirect("/board/login");
+      resp.sendRedirect("/login");
       return;
     }
 
@@ -63,12 +63,11 @@ public class BoardServlet extends HttpServlet {
 
     // 로그인이 되어있지 않은 경우
     if (session.getAttribute("id") == null) {
-      resp.sendRedirect("/board/login");
+      resp.sendRedirect("/login");
       return;
     }
 
     System.out.println(req.getParameter("testText"));
-    System.out.println(req.getPart("testFile").getName());
     System.out.println(req.getPart("testFile").getSubmittedFileName());
 
     RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");

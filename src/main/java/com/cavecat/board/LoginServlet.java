@@ -26,16 +26,16 @@ public class LoginServlet extends HttpServlet {
     // <Manager className="org.apache.catalina.session.PersistentManager"
     // saveOnRestart="true"/>
     //
-    // Tomcat 서버를 재시동하거나 심지어 컴퓨터를 껐다 켜도 기존의 세션이 백업이 되는 기능.
-    // 일정시간 사용되지 않는 세션은 하드에 저장되어서 메모리를 차지하지 않게 됩니다.
-    // 그러다 다시 그 세션의 요청이 들어오면 복원되어서 사용이 됩니다.
-    // 톰캣을 셧다운할 때에 현재 있는 모든 세션이 저장됩니다.
+    // Tomcat 서버를 재시동하거나 심지어 컴퓨터를 껐다 켜도 기존의 세션이 백업이 된다.
+    // 일정시간 사용되지 않는 세션은 하드에 저장되어 메모리를 차지하지 않게 된다.
+    // 그러다 다시 그 세션의 요청이 들어오면 복원된다.
+    // 톰캣을 셧다운할 때에 현재 있는 모든 세션이 저장된다.
     // 기본설정은 true.
     HttpSession session = req.getSession();
 
     if (req.getParameter("logout") != null) {
       session.invalidate();
-      resp.sendRedirect("/board/board");
+      resp.sendRedirect("/board");
       return;
     }
 
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
     if (session.getAttribute("id") != null) {
 
       System.out.println("아이디 : " + session.getAttribute("id"));
-      resp.sendRedirect("/board/board");
+      resp.sendRedirect("/board");
       return;
     }
 
@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 
     // 로그인이 이미 되어있는 경우
     if (session.getAttribute("id") != null) {
-      resp.sendRedirect("/board/board");
+      resp.sendRedirect("/board");
       return;
     }
 
@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
       // 세션 고정 공격 방지 http://storyj.net/?p=52
       req.changeSessionId();
       System.out.println(" 세션아이디 후   :" + session.getId());
-      resp.sendRedirect("/board/board");
+      resp.sendRedirect("/board");
     }
   }
 
