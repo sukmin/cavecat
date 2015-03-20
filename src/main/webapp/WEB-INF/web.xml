@@ -67,6 +67,16 @@
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>session</servlet-name>
+		<servlet-class>com.cavecat.board.SessionListServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>session</servlet-name>
+		<url-pattern>/session</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 해당 패턴의 jsp에 공통으로 적용할 속성 지정. 생략해도 상관없으나 지정되는 순서는 지켜야 한다. ex. url-pattern이 page-encoding보다 먼저 나와야 한다. -->
 	<jsp-config>
 		<jsp-property-group>

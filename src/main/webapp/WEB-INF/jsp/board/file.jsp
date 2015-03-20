@@ -1,4 +1,4 @@
-<%@ page session="false" %>
+<%@ page session="true" %>
 <!doctype html>
 <html>
 <head>
