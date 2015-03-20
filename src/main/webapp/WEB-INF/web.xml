@@ -15,6 +15,11 @@
 		<param-name>game</param-name>
 		<param-value>star craft</param-value>
 	</context-param>
+	
+	<!-- 세션의 변경을 감지하는 리스너 -->
+	<listener>
+		<listener-class>com.cavecat.board.SessionListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>board</servlet-name>
