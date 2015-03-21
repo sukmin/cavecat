@@ -1,4 +1,5 @@
 <%@ page session="true" %>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -6,9 +7,12 @@
 	<title>파일저장</title>
 </head>
 <body>
-	<div>파일 저장</div>
+	<h2>게시판</h2>
 	<form action="/board" method="post" enctype="multipart/form-data">
-		<input type="text" name="testText"><br>
+		<div><input type="text" name="title" placeholder="제목"></div>
+		<div><textarea rows="5" cols="30" name="text" placeholder="내용"></textarea></div>
+		<br>
+		<div>첨부파일</div>
 		<input type="file" name="testFile"><br>
 		<input type="submit"><br>
 	</form>

@@ -2,11 +2,11 @@
 <%@ page import="java.util.List" %>
 <%!
 	private static String toString(long timeInterval) {
-		if(timeInterval < 1_000){
+		if (timeInterval < 1_000) {
 			return "less than one second";
 		}
 		
-		if(timeInterval < 60_000){
+		if (timeInterval < 60_000) {
 			return (timeInterval / 1_000) + " seconds";
 		}
 		

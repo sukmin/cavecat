@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.common.base.Objects;
+
 public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 9222155466231723860L;
   private static final Map<String, String> userData = new HashMap<>();
@@ -35,15 +37,14 @@ public class LoginServlet extends HttpServlet {
 
     if (req.getParameter("logout") != null) {
       session.invalidate();
-      resp.sendRedirect("/board");
+      resp.sendRedirect("/login");
       return;
     }
 
     // 로그인이 이미 되어있는 경우
     if (session.getAttribute("id") != null) {
-
       System.out.println("아이디 : " + session.getAttribute("id"));
-      resp.sendRedirect("/board");
+      resp.sendRedirect("/list");
       return;
     }
 
@@ -60,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 
     // 로그인이 이미 되어있는 경우
     if (session.getAttribute("id") != null) {
-      resp.sendRedirect("/board");
+      resp.sendRedirect("/list");
       return;
     }
 
@@ -78,19 +79,11 @@ public class LoginServlet extends HttpServlet {
       // 세션 고정 공격 방지 http://storyj.net/?p=52
       req.changeSessionId();
       System.out.println(" 세션아이디 후   :" + session.getId());
-      resp.sendRedirect("/board");
+      resp.sendRedirect("/list");
     }
   }
 
   private boolean isLoginFail(String id, String passwd) {
-    if (id == null || passwd == null) {
-      return true;
-    }
-
-    if (userData.containsKey(id) == false || passwd.equals(userData.get(id)) == false) {
-      return true;
-    }
-
-    return false;
+    return !Objects.equal(userData.get(id), passwd);
   }
 }

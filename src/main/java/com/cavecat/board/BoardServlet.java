@@ -11,17 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BoardServlet extends HttpServlet {
   private static final long serialVersionUID = 4251285399811752982L;
+  private static Logger logger = LoggerFactory.getLogger(BoardServlet.class);
 
   @Override
   public void destroy() {
-    System.out.println("Servlet " + this.getServletName() + " has stopped.");
+    logger.debug("Servlet {} has stopped.", this.getServletName());
   }
 
   @Override
   public void init() throws ServletException {
-    System.out.println("Servlet " + this.getServletName() + " has started.");
+    logger.debug("Servlet {} has started.", this.getServletName());
   }
 
   @Override
@@ -29,13 +33,6 @@ public class BoardServlet extends HttpServlet {
       IOException {
 
     HttpSession session = req.getSession();
-
-    // 로그인이 되어있지 않은 경우
-    if (session.getAttribute("id") == null) {
-      resp.sendRedirect("/login");
-      return;
-    }
-
     resp.setCharacterEncoding("utf-8");
 
     // 모든 서블릿에서 공유하는 값
@@ -59,16 +56,9 @@ public class BoardServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
 
-    HttpSession session = req.getSession();
-
-    // 로그인이 되어있지 않은 경우
-    if (session.getAttribute("id") == null) {
-      resp.sendRedirect("/login");
-      return;
-    }
-
-    System.out.println(req.getParameter("testText"));
-    System.out.println(req.getPart("testFile").getSubmittedFileName());
+    logger.debug("title: {}", req.getParameter("title"));
+    logger.debug("text: {}", req.getParameter("text"));
+    logger.debug("fileName: {}", req.getPart("testFile").getSubmittedFileName());
 
     RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
     requestDispatcher.forward(req, resp);
