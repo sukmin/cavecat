@@ -12,9 +12,9 @@
 <body>
 	<h2>Login View</h2>
 	<div>로그인을 하시오.</div>
-	<% if ((Boolean) request.getAttribute("loginFailed")){ %>
-	<p>아이디와 패스워드를 입력하세요.</p>
-	<% } %>
+	<c:if test="${ loginFailed }">
+		<p>로그인이 실패하였습니다.</p>
+	</c:if>
 	<div>
 		<form action="/login" method="post">
 			<label for="id">아이디</label>

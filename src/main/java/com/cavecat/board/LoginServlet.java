@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
       return;
     }
 
-    req.setAttribute("loginFailed", true);
+    req.setAttribute("loginFailed", false);
     RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/login.jsp");
     requestDispatcher.forward(req, resp);
   }

@@ -57,15 +57,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%
-						List<Map<String, Object>> lists = (List<Map<String, Object>>) request.getAttribute("lists");
-						for (Map<String, Object> board : lists) {
-					%>
+					<c:forEach items="${ lists }" var="item">
 					<tr>
-						<td><%= (String) board.get("id") %></td>
-						<td><a href="#"><%= (String) board.get("title") %></a></td>
+						<td><c:out value="${item['id']}"/></td>
+						<td><a href="#"><c:out value="${item['title']}"/></a></td>
 					</tr>
-					<% } %>
+					</c:forEach>
 				</tbody>
 			</table>
 			<button type="button" onclick="(function(){location.href = '/board'; return false;})();" >글쓰기</button>

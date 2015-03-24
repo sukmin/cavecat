@@ -48,7 +48,7 @@ public class BoardServlet extends HttpServlet {
     session.setAttribute("apple", "jobs");
     System.out.println(session.getId());
 
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/board.jsp");
     requestDispatcher.forward(req, resp);
   }
 
@@ -60,7 +60,7 @@ public class BoardServlet extends HttpServlet {
     logger.debug("text: {}", req.getParameter("text"));
     logger.debug("fileName: {}", req.getPart("testFile").getSubmittedFileName());
 
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/file.jsp");
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/jsp/board/board.jsp");
     requestDispatcher.forward(req, resp);
   }
 }
