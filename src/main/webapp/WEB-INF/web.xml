@@ -21,6 +21,22 @@
 		<listener-class>com.cavecat.board.SessionListener</listener-class>
 	</listener>
 	
+	<!-- 인코딩을 바꿉니다. -->
+	<filter>
+		<filter-name>encoding-filter</filter-name>
+		<filter-class>com.cavecat.filter.EncodingFilter</filter-class>
+		
+		<!-- 인코딩 타입을 지정  -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- 로그인 페이지를 제외한 모든 페이지에 접근시 -->
 	<!-- 로그인 상태가 아니면 로그인 페이지로 이동됩니다. -->
 	<filter>
@@ -37,6 +53,8 @@
 		<filter-name>login-check-filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
 	
 	
 	<servlet>

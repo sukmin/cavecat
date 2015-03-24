@@ -11,9 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cavecat.filter.EncodingFilter;
 import com.google.common.base.Objects;
 
 public class LoginServlet extends HttpServlet {
+	
+
+	private static Logger logger = LoggerFactory.getLogger(LoginServlet.class);
   private static final long serialVersionUID = 9222155466231723860L;
   private static final Map<String, String> userData = new HashMap<>();
 
@@ -25,6 +32,9 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
+	  
+	  logger.info("로그인페이지 doGet");
+	  
     // <Manager className="org.apache.catalina.session.PersistentManager"
     // saveOnRestart="true"/>
     //

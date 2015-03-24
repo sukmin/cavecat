@@ -33,7 +33,6 @@ public class BoardServlet extends HttpServlet {
       IOException {
 
     HttpSession session = req.getSession();
-    resp.setCharacterEncoding("utf-8");
 
     // 모든 서블릿에서 공유하는 값
     ServletContext servletContext = this.getServletContext();
