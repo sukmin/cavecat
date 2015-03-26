@@ -14,21 +14,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EncodingFilter implements Filter {
-
   private static Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
-
-  private FilterConfig config;
   private String encoding;
 
   @Override
   public void init(FilterConfig config) throws ServletException {
-    this.config = config;
     this.encoding = StringUtils.defaultString(config.getInitParameter("encoding"), "UTF-8");
   }
 
   @Override
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
       throws IOException, ServletException {
+    logger.debug("Request CharacterEncoding: {}", req.getCharacterEncoding());
+
     req.setCharacterEncoding(encoding);
     chain.doFilter(req, resp);
   }

@@ -13,24 +13,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Objects;
+import org.springframework.util.AntPathMatcher;
 
 public class LoginCheckFilter implements Filter {
   private FilterConfig config;
   private String loginPage;
+  private String excludePattern;
+  private AntPathMatcher pathMatcher = new AntPathMatcher();
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     this.config = filterConfig;
     this.loginPage = StringUtils.defaultString(config.getInitParameter("login-page"), "/login");
+    this.excludePattern = config.getInitParameter("exclude-pattern");
   }
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) request;
-    if (Objects.equal(req.getRequestURI(), loginPage)) {
+
+    if (StringUtils.isNotEmpty(excludePattern)) {
+      if (pathMatcher.match(excludePattern, req.getRequestURI())) {
+        chain.doFilter(request, response);
+        return;
+      }
+    }
+
+    if (pathMatcher.match(loginPage, req.getRequestURI())) {
       chain.doFilter(request, response);
       return;
     }

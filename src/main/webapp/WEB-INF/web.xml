@@ -16,10 +16,12 @@
 		<param-value>star craft</param-value>
 	</context-param>
 	
+	
 	<!-- 세션의 변경을 감지하는 리스너 -->
 	<listener>
 		<listener-class>com.cavecat.board.SessionListener</listener-class>
 	</listener>
+	
 	
 	<!-- 인코딩을 바꿉니다. -->
 	<filter>
@@ -48,13 +50,16 @@
 			<param-name>login-page</param-name>
 			<param-value>/login</param-value>
 		</init-param>
+		<!-- 정적 파일은 제외 -->
+		<init-param>
+			<param-name>exclude-pattern</param-name>
+			<param-value>/resources/**</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>login-check-filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
 	
 	
 	<servlet>
@@ -87,7 +92,6 @@
 			<file-size-threshold>5242880</file-size-threshold>
 		</multipart-config>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>board</servlet-name>
 		<url-pattern>/board</url-pattern>
@@ -135,6 +139,5 @@
 			<default-content-type>text/html</default-content-type>
 		</jsp-property-group>
 	</jsp-config>
-	
 </web-app>
 
