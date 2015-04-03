@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>login</title>
+	<title>로그인</title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -54,12 +54,19 @@
 	</style>
 </head>
 <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">cavecat</a>
+			</div>
+		</div>
+	</nav>
 	<div class="container">
 		<form class="form-signin" action="/login" method="post">
-			<h2 class="form-signin-heading">
-				<c:if test="${not loginFailed}"><p>로그인이 필요합니다</p></c:if>
+			<h4 class="form-signin-heading">
+				<c:if test="${not loginFailed}"><p>로그인이 필요합니다.</p></c:if>
 				<c:if test="${loginFailed}"><p>로그인이 실패하였습니다.</p></c:if>
-			</h2>
+			</h4>
 			<label for="inputID" class="sr-only">Email address</label>
 			<input type="text" id="inputID" name="id" class="form-control" placeholder="ID" required autofocus>
 			<label for="inputPassword" class="sr-only">Password</label>
