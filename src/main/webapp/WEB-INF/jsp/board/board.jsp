@@ -13,6 +13,7 @@
 	<style type="text/css">body { padding-top: 70px; }</style>
 </head>
 <body>
+	<h1>${testAttr }</h1>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">

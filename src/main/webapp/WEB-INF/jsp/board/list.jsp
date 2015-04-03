@@ -30,14 +30,21 @@
 							<th>제목</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach items="${ lists }" var="item">
-						<tr>
-							<td><c:out value="${item['id']}"/></td>
-							<td><a href="#"><c:out value="${item['title']}"/></a></td>
-						</tr>
-						</c:forEach>
-					</tbody>
+					<c:if test="${empty boards}">
+						<tbody>
+							<tr><td colspan="2" align="center">작성된 글이 없습니다.</td></tr>
+						</tbody>
+					</c:if>
+					<c:if test="${not empty boards}">
+						<tbody>
+							<c:forEach items="${boards}" var="board">
+							<tr>
+								<td><c:out value="${board.id}"/></td>
+								<td><a href="#"><c:out value="${board.title}"/></a></td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</c:if>
 				</table>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package com.cavecat.board;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cavecat.model.Board;
 
 public class BoardServlet extends HttpServlet {
   private static final long serialVersionUID = 4251285399811752982L;
@@ -34,6 +37,7 @@ public class BoardServlet extends HttpServlet {
 
     HttpSession session = req.getSession();
 
+
     // 모든 서블릿에서 공유하는 값
     ServletContext servletContext = this.getServletContext();
     System.out.println(servletContext.getInitParameter("movie"));
@@ -54,11 +58,28 @@ public class BoardServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-
-    logger.debug("title: {}", req.getParameter("title"));
-    logger.debug("text: {}", req.getParameter("text"));
-    logger.debug("fileName: {}", req.getPart("testFile").getSubmittedFileName());
+    appendBoardByServletContext(req);
 
     resp.sendRedirect("/list");
+  }
+
+  /**
+   * TODO: 영속성을 위해 임시로 추가한 부분<br>
+   * DB를붙이면 삭제 요망
+   * 
+   * @param req
+   */
+  private void appendBoardByServletContext(HttpServletRequest req) {
+    ServletContext servletContext = this.getServletContext();
+    @SuppressWarnings("unchecked")
+    List<Board> boards = (List<Board>) servletContext.getAttribute("boards");
+
+    Board board = new Board();
+    board.setId(boards.size() + 1L);
+    board.setTitle(req.getParameter("title"));
+    board.setText(req.getParameter("text"));
+
+    boards.add(board);
+    servletContext.setAttribute("boards", boards);
   }
 }
