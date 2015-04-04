@@ -23,35 +23,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>제목</th>
-						</tr>
-					</thead>
-					<c:if test="${empty boards}">
-						<tbody>
-							<tr><td colspan="2" align="center">작성된 글이 없습니다.</td></tr>
-						</tbody>
-					</c:if>
-					<c:if test="${not empty boards}">
-						<tbody>
-							<c:forEach items="${boards}" var="board">
-							<tr>
-								<td><c:out value="${board.id}"/></td>
-								<td><a href="/view?id=${board.id}"><c:out value="${board.title}"/></a></td>
-							</tr>
-							</c:forEach>
-						</tbody>
-					</c:if>
-				</table>
+				<div class="panel panel-default">
+					<div class="panel-heading">${board.title}</div>
+					<div class="panel-body">${board.text}</div>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-right">
-					<a class="btn btn-default" href="/board" role="button">글쓰기</a>
+					<a class="btn btn-default" href="/list" role="button">글 목록</a> 
 					<a class="btn btn-default" href="/logout" role="button">Logout</a>
 				</p>
 			</div>

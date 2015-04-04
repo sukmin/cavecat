@@ -9,12 +9,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  */
 public class Board {
-
   public static final String BOARDS = "boards";
   public static final String BOARD = "board";
 
   public static final String PARAM_TITLE = "title";
   public static final String PARAM_TEXT = "text";
+  public static final String PARAM_ID = "id";
 
   private Long id = 0L;
   private String title;

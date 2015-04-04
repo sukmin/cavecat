@@ -23,8 +23,6 @@ public class BoardSaveController implements Controller {
     ServletContext servletContext = (ServletContext) model.get(DispatcherServlet.SERVLET_CONTEXT);
     Board board = (Board) model.get(Board.BOARD);
 
-
-
     @SuppressWarnings("unchecked")
     List<Board> boards = (List<Board>) servletContext.getAttribute(Board.BOARDS);
     if (Objects.isNull(boards)) {
@@ -37,7 +35,7 @@ public class BoardSaveController implements Controller {
 
     servletContext.setAttribute(Board.BOARDS, boards);
 
-    return DispatcherServlet.REDIRECT + "/list";
+    return DispatcherServlet.REDIRECT + "/view?id=" + board.getId();
   }
 
 }

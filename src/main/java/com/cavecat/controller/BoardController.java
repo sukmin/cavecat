@@ -2,7 +2,7 @@ package com.cavecat.controller;
 
 import java.util.Map;
 
-public class BoardContoller implements Controller {
+public class BoardController implements Controller {
 
   @Override
   public String execute(Map<String, Object> model) throws Exception {

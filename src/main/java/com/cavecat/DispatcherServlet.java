@@ -14,9 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cavecat.controller.BoardContoller;
+import com.cavecat.controller.BoardController;
 import com.cavecat.controller.BoardListController;
 import com.cavecat.controller.BoardSaveController;
+import com.cavecat.controller.BoardViewController;
 import com.cavecat.controller.Controller;
 import com.cavecat.controller.LoginCertifyController;
 import com.cavecat.controller.LoginController;
@@ -68,11 +69,17 @@ public class DispatcherServlet extends HttpServlet {
           controller = new LoginCertifyController();
           break;
         case "/list":
+          model.put(SERVLET_CONTEXT, this.getServletContext());
           model.put(Board.BOARDS, this.getServletContext().getAttribute(Board.BOARDS));
           controller = new BoardListController();
           break;
         case "/board":
-          controller = new BoardContoller();
+          controller = new BoardController();
+          break;
+        case "/view":
+          controller = new BoardViewController();
+          model.put(Board.BOARDS, this.getServletContext().getAttribute(Board.BOARDS));
+          model.put(Board.PARAM_ID, request.getParameter(Board.PARAM_ID));
           break;
         case "/boardSave":
           model.put(SERVLET_CONTEXT, this.getServletContext());
@@ -109,11 +116,10 @@ public class DispatcherServlet extends HttpServlet {
       }
 
     } catch (Exception e) {
-
+      logger.debug("DispatcherServlet Exception: {}", e.getMessage());
       request.setAttribute("error", e);
       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
       rd.forward(request, response);
-
     }
 
   }

@@ -1,7 +1,9 @@
 package com.cavecat.model;
 
-public class User {
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+public class User {
   public static final String USER = "user";
   public static final String PARAM_ID = "id";
   public static final String PARAM_PASSWD = "passwd";
@@ -39,33 +41,11 @@ public class User {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((passwd == null) ? 0 : passwd.hashCode());
-    return result;
+    return HashCodeBuilder.reflectionHashCode(this);
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    User other = (User) obj;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    if (passwd == null) {
-      if (other.passwd != null)
-        return false;
-    } else if (!passwd.equals(other.passwd))
-      return false;
-    return true;
+    return EqualsBuilder.reflectionEquals(this, obj);
   }
-
 }
