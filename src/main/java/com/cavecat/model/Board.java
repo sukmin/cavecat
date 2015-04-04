@@ -9,9 +9,23 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  */
 public class Board {
+
+  public static final String BOARDS = "boards";
+  public static final String BOARD = "board";
+
+  public static final String PARAM_TITLE = "title";
+  public static final String PARAM_TEXT = "text";
+
   private Long id = 0L;
   private String title;
   private String text;
+
+  public Board() {}
+
+  public Board(String title, String text) {
+    this.title = title;
+    this.text = text;
+  }
 
   public Long getId() {
     return id;

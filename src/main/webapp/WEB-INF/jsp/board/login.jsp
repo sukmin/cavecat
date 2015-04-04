@@ -52,6 +52,13 @@
 			border-top-right-radius: 0;
 		}
 	</style>
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="/resources/bootstrap-3.3.4-dist/js/html5shiv.min.js"></script>
+      <script src="/resources/bootstrap-3.3.4-dist/js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -62,7 +69,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<form class="form-signin" action="/login" method="post">
+		<form class="form-signin" action="/loginCertify" method="post">
 			<h4 class="form-signin-heading">
 				<c:if test="${not loginFailed}"><p>로그인이 필요합니다.</p></c:if>
 				<c:if test="${loginFailed}"><p>로그인이 실패하였습니다.</p></c:if>

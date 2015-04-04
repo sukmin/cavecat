@@ -18,6 +18,7 @@ import org.springframework.util.AntPathMatcher;
 public class LoginCheckFilter implements Filter {
   private FilterConfig config;
   private String loginPage;
+  private String loginCertification;
   private String excludePattern;
   private AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -25,6 +26,8 @@ public class LoginCheckFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {
     this.config = filterConfig;
     this.loginPage = StringUtils.defaultString(config.getInitParameter("login-page"), "/login");
+    this.loginCertification =
+        StringUtils.defaultString(config.getInitParameter("login-Certification"), "/loginCertify");
     this.excludePattern = config.getInitParameter("exclude-pattern");
   }
 
@@ -40,7 +43,8 @@ public class LoginCheckFilter implements Filter {
       }
     }
 
-    if (pathMatcher.match(loginPage, req.getRequestURI())) {
+    if (pathMatcher.match(loginPage, req.getRequestURI())
+        || pathMatcher.match(loginCertification, req.getRequestURI())) {
       chain.doFilter(request, response);
       return;
     }

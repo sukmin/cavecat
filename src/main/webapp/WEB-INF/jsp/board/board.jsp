@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<form action="/board" method="post" enctype="multipart/form-data">
+				<form action="/boardSave" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="title">제목</label>
 						<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
@@ -48,7 +48,7 @@
 			<div class="col-md-8">
 				<p class="text-right">
 					<a class="btn btn-default" href="/list" role="button">글 목록</a> 
-					<a class="btn btn-default" href="/login?logout" role="button">Logout</a>
+					<a class="btn btn-default" href="/logout" role="button">Logout</a>
 				</p>
 			</div>
 			<div class="col-md-2"></div>

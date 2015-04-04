@@ -52,7 +52,7 @@
 			<div class="col-md-12">
 				<p class="text-right">
 					<a class="btn btn-default" href="/board" role="button">글쓰기</a>
-					<a class="btn btn-default" href="/login?logout" role="button">Logout</a>
+					<a class="btn btn-default" href="/logout" role="button">Logout</a>
 				</p>
 			</div>
 		</div>

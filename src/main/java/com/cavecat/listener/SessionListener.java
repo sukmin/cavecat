@@ -1,4 +1,4 @@
-package com.cavecat.board;
+package com.cavecat.listener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
