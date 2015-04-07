@@ -45,7 +45,7 @@ public class ListServlet extends HttpServlet {
     }
 
     boards =
-        boards.stream().sorted((e1, e2) -> Long.compare(e2.getId(), e1.getId()))
+        boards.stream().sorted((e1, e2) -> Long.compare(e2.getSequence(), e1.getSequence()))
             .collect(Collectors.toList());
     req.setAttribute("boards", boards);
   }

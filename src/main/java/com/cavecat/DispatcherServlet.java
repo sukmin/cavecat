@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cavecat.controller.BoardController;
 import com.cavecat.controller.BoardListController;
@@ -23,6 +25,7 @@ import com.cavecat.controller.LoginCertifyController;
 import com.cavecat.controller.LoginController;
 import com.cavecat.controller.LogoutController;
 import com.cavecat.controller.SessionListController;
+import com.cavecat.dao.BoardDAO;
 import com.cavecat.model.Board;
 import com.cavecat.model.User;
 
@@ -44,6 +47,12 @@ public class DispatcherServlet extends HttpServlet {
     String servletPath = request.getServletPath();
     HttpSession session = request.getSession();
     Map<String, Object> model = new HashMap<>();
+
+    ServletContext sc = this.getServletContext();
+    JdbcTemplate jdbcTemplate = (JdbcTemplate) sc.getAttribute("jdbcTemplate");
+    BoardDAO boardDAO = new BoardDAO();
+    boardDAO.setJdbcTemplate(jdbcTemplate);
+
 
     logger.info("servletPath : {}", servletPath);
 
@@ -67,23 +76,28 @@ public class DispatcherServlet extends HttpServlet {
         case "/list":
           model.put(SERVLET_CONTEXT, this.getServletContext());
           model.put(Board.BOARDS, this.getServletContext().getAttribute(Board.BOARDS));
-          controller = new BoardListController();
+          BoardListController b = new BoardListController();
+          b.setBoardDAO(boardDAO);
+          controller = b;
           break;
         case "/board":
           controller = new BoardController();
           break;
         case "/view":
-          controller = new BoardViewController();
           model.put(Board.BOARDS, this.getServletContext().getAttribute(Board.BOARDS));
           model.put(Board.PARAM_ID, request.getParameter(Board.PARAM_ID));
+          BoardViewController b1 = new BoardViewController();
+          b1.setBoardDAO(boardDAO);
+          controller = b1;
           break;
         case "/boardSave":
-          model.put(SERVLET_CONTEXT, this.getServletContext());
           model.put(
               Board.BOARD,
               new Board(request.getParameter(Board.PARAM_TITLE), request
                   .getParameter(Board.PARAM_TEXT)));
-          controller = new BoardSaveController();
+          BoardSaveController b2 = new BoardSaveController();
+          b2.setBoardDAO(boardDAO);
+          controller = b2;
           break;
         case "/logout":
           model.put(HTTP_SESSION, session);

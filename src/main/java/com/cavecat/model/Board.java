@@ -16,7 +16,7 @@ public class Board {
   public static final String PARAM_TEXT = "text";
   public static final String PARAM_ID = "id";
 
-  private Long id = 0L;
+  private Long sequence = 0L;
   private String title;
   private String text;
 
@@ -27,12 +27,18 @@ public class Board {
     this.text = text;
   }
 
-  public Long getId() {
-    return id;
+  public Board(Long sequnece, String title, String text) {
+    this.sequence = sequnece;
+    this.title = title;
+    this.text = text;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public Long getSequence() {
+    return sequence;
+  }
+
+  public void setSequence(Long sequence) {
+    this.sequence = sequence;
   }
 
   public String getTitle() {

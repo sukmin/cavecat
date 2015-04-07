@@ -75,7 +75,7 @@ public class BoardServlet extends HttpServlet {
     List<Board> boards = (List<Board>) servletContext.getAttribute("boards");
 
     Board board = new Board();
-    board.setId(boards.size() + 1L);
+    board.setSequence(boards.size() + 1L);
     board.setTitle(req.getParameter("title"));
     board.setText(req.getParameter("text"));
 

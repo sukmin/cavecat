@@ -39,8 +39,8 @@
 						<tbody>
 							<c:forEach items="${boards}" var="board">
 							<tr>
-								<td><c:out value="${board.id}"/></td>
-								<td><a href="/view?id=${board.id}"><c:out value="${board.title}"/></a></td>
+								<td><c:out value="${board.sequence}"/></td>
+								<td><a href="/view?id=${board.sequence}"><c:out value="${board.title}"/></a></td>
 							</tr>
 							</c:forEach>
 						</tbody>

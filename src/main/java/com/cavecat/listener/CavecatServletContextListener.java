@@ -28,7 +28,7 @@ public class CavecatServletContextListener implements ServletContextListener {
   private JdbcTemplate createJdbcTemplate() {
     BasicDataSource dataSource = new BasicDataSource();
     dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://serivires.iptime.co.kr/cavecat");
+    dataSource.setUrl("jdbc:mysql://serivires.ipdisk.co.kr/cavecat");
     dataSource.setUsername("");
     dataSource.setPassword("");
     dataSource.setInitialSize(3);
