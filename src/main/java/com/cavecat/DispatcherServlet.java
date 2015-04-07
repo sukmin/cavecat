@@ -27,13 +27,10 @@ import com.cavecat.model.Board;
 import com.cavecat.model.User;
 
 public class DispatcherServlet extends HttpServlet {
-
+  private static final long serialVersionUID = 1L;
   private static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 
-  private static final long serialVersionUID = 1L;
-
   public static final String REDIRECT = "redirect:";
-
   public static final String HTTP_REQUEST = "httpRequest";
   public static final String HTTP_SESSION = "httpSession";
   public static final String SERVLET_CONTEXT = "servletContext";
@@ -41,7 +38,6 @@ public class DispatcherServlet extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     response.setContentType("text/html; charset=UTF-8");
 
     Controller controller = null;
@@ -100,20 +96,16 @@ public class DispatcherServlet extends HttpServlet {
           throw new Exception("정의되지 않은 URL");
       }
 
-
       String viewUrl = controller.execute(model);
-
-      for (String key : model.keySet()) {
-        request.setAttribute(key, model.get(key));
-      }
+      model.keySet().forEach((key) -> request.setAttribute(key, model.get(key)));
 
       if (viewUrl.startsWith(REDIRECT)) {
         response.sendRedirect(viewUrl.substring(9));
         return;
-      } else {
-        RequestDispatcher rd = request.getRequestDispatcher(viewUrl);
-        rd.include(request, response);
       }
+
+      RequestDispatcher rd = request.getRequestDispatcher(viewUrl);
+      rd.include(request, response);
 
     } catch (Exception e) {
       logger.debug("DispatcherServlet Exception: {}", e.getMessage());
@@ -121,6 +113,5 @@ public class DispatcherServlet extends HttpServlet {
       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
       rd.forward(request, response);
     }
-
   }
 }

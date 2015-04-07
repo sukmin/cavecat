@@ -20,6 +20,9 @@
 	<listener>
 		<listener-class>com.cavecat.listener.SessionListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.cavecat.listener.CavecatServletContextListener</listener-class>
+	</listener>
 	
 	<!-- 인코딩을 바꿉니다. -->
 	<filter>
@@ -126,4 +129,3 @@
 		<welcome-file>list</welcome-file>
 	</welcome-file-list>
 </web-app>
-
