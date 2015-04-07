@@ -11,7 +11,6 @@ import com.cavecat.dao.BoardDAO;
 import com.cavecat.model.Board;
 
 public class BoardListController implements Controller {
-
   private static Logger logger = LoggerFactory.getLogger(BoardListController.class);
 
   private BoardDAO boardDAO;
@@ -23,10 +22,7 @@ public class BoardListController implements Controller {
   @Override
   public String execute(Map<String, Object> model) throws Exception {
     List<Board> boards = boardDAO.selectList();
-
     boards = sortBoardList(boards);
-
-
     logger.info("현재 보드 갯수 : {}", boards.size());
 
     model.put(Board.BOARDS, boards);
@@ -38,5 +34,4 @@ public class BoardListController implements Controller {
         sorted((e1, e2) -> Long.compare(e2.getSequence(), e1.getSequence())) //
         .collect(Collectors.toList());
   }
-
 }

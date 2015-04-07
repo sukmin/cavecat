@@ -10,9 +10,7 @@ import com.cavecat.dao.BoardDAO;
 import com.cavecat.model.Board;
 
 public class BoardSaveController implements Controller {
-
   private static Logger logger = LoggerFactory.getLogger(BoardSaveController.class);
-
   private BoardDAO boardDAO;
 
   public void setBoardDAO(BoardDAO boardDAO) {
@@ -21,15 +19,10 @@ public class BoardSaveController implements Controller {
 
   @Override
   public String execute(Map<String, Object> model) throws Exception {
-
     Board board = (Board) model.get(Board.BOARD);
-
-    boardDAO.insertBoard(board);
-
     logger.info(board.toString());
 
-
+    board = boardDAO.insertOne(board);
     return DispatcherServlet.REDIRECT + "/view?id=" + board.getSequence();
   }
-
 }
