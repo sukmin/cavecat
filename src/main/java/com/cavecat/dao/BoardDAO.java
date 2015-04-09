@@ -16,7 +16,7 @@ public class BoardDAO {
   }
 
   public List<Board> selectList() {
-    return jdbcTemplate.query("SELECT * FROM board", this::mapBoard);
+    return jdbcTemplate.query("SELECT * FROM board ORDER By seq DESC", this::mapBoard);
   }
 
   public Board selectOne(Long sequence) {

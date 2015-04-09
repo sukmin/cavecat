@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CavecatServletContextListener implements ServletContextListener {
@@ -31,8 +31,10 @@ public class CavecatServletContextListener implements ServletContextListener {
     dataSource.setUrl("jdbc:mysql://serivires.ipdisk.co.kr/cavecat");
     dataSource.setUsername("");
     dataSource.setPassword("");
+
     dataSource.setInitialSize(3);
-    dataSource.setMaxActive(10);
+    dataSource.setMinIdle(3);
+    dataSource.setMaxIdle(10);
 
     return new JdbcTemplate(dataSource);
   }
