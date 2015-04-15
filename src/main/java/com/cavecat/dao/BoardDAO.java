@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.cavecat.model.Board;
 
+@Repository
 public class BoardDAO {
+  @Autowired
   private JdbcTemplate jdbcTemplate;
-
-  public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
 
   public List<Board> selectList() {
     return jdbcTemplate.query("SELECT * FROM board ORDER By seq DESC", this::mapBoard);

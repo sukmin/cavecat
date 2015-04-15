@@ -1,4 +1,6 @@
-<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -25,7 +27,8 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<form action="/boardSave" method="post" enctype="multipart/form-data">
+				<!-- <form action="/write" method="post" enctype="multipart/form-data"> -->
+				<form action="/write" method="post" >
 					<div class="form-group">
 						<label for="title">제목</label>
 						<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">

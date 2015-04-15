@@ -1,4 +1,6 @@
-<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -69,7 +71,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<form class="form-signin" action="/loginCertify" method="post">
+		<form class="form-signin" action="/login" method="post">
 			<h4 class="form-signin-heading">
 				<c:if test="${not loginFailed}"><p>로그인이 필요합니다.</p></c:if>
 				<c:if test="${loginFailed}"><p>로그인이 실패하였습니다.</p></c:if>

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -55,8 +58,6 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/js/jquery-1.11.2.min.js"></script>
-	<script src="/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></scrip
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    t>
+	<script src="/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

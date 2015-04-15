@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+				http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
 	
 	<display-name>cavecat</display-name>
 	
 	<!-- context-param을 사용하여 정의하면 모든 서블릿이 값을 공유하게 된다. -->
 	<context-param>
-		<param-name>movie</param-name>
-		<param-value>man from earth</param-value>
-	</context-param>
-	<context-param>
-		<param-name>game</param-name>
-		<param-value>star craft</param-value>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/root-context.xml</param-value>
 	</context-param>
 	
 	<!-- 세션의 변경을 감지하는 리스너 -->
@@ -21,111 +17,61 @@
 		<listener-class>com.cavecat.listener.SessionListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.cavecat.listener.CavecatServletContextListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<!-- 인코딩을 바꿉니다. -->
 	<filter>
-		<filter-name>encoding-filter</filter-name>
-		<filter-class>com.cavecat.filter.EncodingFilter</filter-class>
-		
-		<!-- 인코딩 타입을 지정  -->
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encoding-filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<!-- 로그인 페이지를 제외한 모든 페이지에 접근시 -->
-	<!-- 로그인 상태가 아니면 로그인 페이지로 이동됩니다. -->
-	<filter>
-		<filter-name>login-check-filter</filter-name>
-		<filter-class>com.cavecat.filter.LoginCheckFilter</filter-class>
-		
-		<!-- 로그인 페이지 주소를 지정 -->
 		<init-param>
-			<param-name>login-page</param-name>
-			<param-value>/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>login-Certification</param-name>
-			<param-value>/loginCertify</param-value>
-		</init-param>
-		<init-param>
-			<param-name>exclude-pattern</param-name>
-			<param-value>/resources/**</param-value>
+			<param-name>force</param-name>
+			<param-value>true</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>login-check-filter</filter-name>
+		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
 	<servlet>
-		<servlet-name>dispatcherServlet</servlet-name>
-		<servlet-class>com.cavecat.DispatcherServlet</servlet-class>
-		
-		<!--  최초접속자의 로딩시간을 없애기 위해 1로 설정. 만약 1로 설정된 서블릿이 더 있다면 web.xml에 정의된 순서대로 로딩 -->
+		<servlet-name>rootServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/servlet-context.xml</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
-		<!-- 파일업로드를 하기 위해 추가 서블릿3.0부터 지원. 기존에는 아파치 파일업로드사용 -->
-		<!-- 설정순서가 틀리면 에러. location, max-file-size,max-request-size,file-size-threshold 순서로 해라 -->
-		<multipart-config>
-			<!-- 파일이 파일사이즈임계값을 넘을경우 메모리로 받지 않고 파일로 임시저장하는데 임시저장되는 경로. 디폴트로 있어 지정안해도 됨 -->
-			<!-- <location>C:\</location> -->
-			<!-- 업로드파일사이즈 제한. 여기서는 20메가로 제한 -->
-			<max-file-size>20971520</max-file-size>
-			<!--  파일사이즈와 관계없이 전체 요청의 크기를 제한. 여기서는 40메가로 제한 -->
-			<max-request-size>41943040</max-request-size>
-			<!-- 파일사이즈임계값은 해당 크기가 넘어가면 메모리가 아닌 파일로 임시저장. 여기서는 5메가로 설정함 -->
-			<file-size-threshold>5242880</file-size-threshold>
-		</multipart-config>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-name>rootServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- 정적 자원들은 디폴트 서블릿이 처리 -->
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.css</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.html</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.js</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.ico</url-pattern>
-	</servlet-mapping>
 	
-	<!-- 해당 패턴의 jsp에 공통으로 적용할 속성 지정. 생략해도 상관없으나 지정되는 순서는 지켜야 한다. ex. url-pattern이 page-encoding보다 먼저 나와야 한다. -->
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>*.jsp</url-pattern>
-			<page-encoding>UTF-8</page-encoding>
-			<!-- scripting-invalid가 true면 jsp에서 java 로직을 허용하지 않는다. -->
-			<scripting-invalid>false</scripting-invalid>
-			<!-- 해당패턴의 jsp에 공통으로 인클루드시킬 파일 -->
-			<include-prelude>/WEB-INF/jsp/base.jsp</include-prelude>
-			<!-- jsp태그가 생성한 공백을 지운다. -->
-			<trim-directive-whitespaces>true</trim-directive-whitespaces>
-			<default-content-type>text/html</default-content-type>
-		</jsp-property-group>
-	</jsp-config>
-	
-	
-	<welcome-file-list>
-		<welcome-file>list</welcome-file>
-	</welcome-file-list>
+	<!-- error-page -->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/WEB-INF/views/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/views/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/views/error.jsp</location>
+	</error-page>
 </web-app>
