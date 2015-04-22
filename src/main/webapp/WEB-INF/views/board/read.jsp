@@ -34,7 +34,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-right">
-					<a class="btn btn-default" href="/list" role="button">글 목록</a> 
+					<a class="btn btn-default" href="/" role="button">글 목록</a> 
 					<a class="btn btn-default" href="/logout" role="button">Logout</a>
 				</p>
 			</div>

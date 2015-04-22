@@ -6,13 +6,13 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://serivires.ipdisk.co.kr/cavecat" />
-		<property name="username" value="" />
-		<property name="password" value="" />
-		<property name="initialSize" value="3"/>
-		<property name="minIdle" value="3"/>
-		<property name="maxIdle" value="10"/>
+		<property name="driverClassName" 	value="com.mysql.jdbc.Driver" />
+		<property name="url" 				value="#{dataSourceProperties['url']}" />
+		<property name="username" 			value="#{dataSourceProperties['username']}" />
+		<property name="password" 			value="#{dataSourceProperties['password']}" />
+		<property name="initialSize" 		value="3"/>
+		<property name="minIdle" 			value="3"/>
+		<property name="maxIdle" 			value="10"/>
 	</bean>
 	
 	<tx:annotation-driven/>

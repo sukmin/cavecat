@@ -1,6 +1,7 @@
 package com.cavecat.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 게시글의 기본 정보를 저장한다.
@@ -17,7 +18,11 @@ public class Board {
   public static final String PARAM_ID = "id";
 
   private Long sequence = 0L;
+
+  @NotBlank
   private String title;
+
+  @NotBlank
   private String text;
 
   public Board() {}

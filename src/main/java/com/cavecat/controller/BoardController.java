@@ -1,17 +1,20 @@
 package com.cavecat.controller;
 
+import javax.validation.Valid;
+
 import org.pegdown.Extensions;
 import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.HtmlUtils;
 
 import com.cavecat.dao.BoardDAO;
 import com.cavecat.model.Board;
@@ -39,14 +42,15 @@ public class BoardController {
     return mav;
   }
 
-  @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ModelAndView read(@PathVariable Long id) {
     ModelAndView mav = new ModelAndView("/board/read");
     logger.debug("board id by {}", id);
 
     Board board = boardDAO.selectOne(id);
+    board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
     PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-    board.setText(processor.markdownToHtml(board.getText()));
+    board.setText(processor.markdownToHtml(HtmlUtils.htmlEscape(board.getText(), "utf-8")));
     mav.addObject(Board.BOARD, board);
 
     return mav;
@@ -58,8 +62,17 @@ public class BoardController {
   }
 
   @RequestMapping(value = "/write", method = RequestMethod.POST)
-  public RedirectView write(@ModelAttribute Board board) {
+  public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult) {
+    ModelAndView mav = new ModelAndView();
+    if (BindingResult.hasErrors()) {
+      mav.addObject("board", board);
+      mav.setViewName("/board/form");
+      return mav;
+    }
+
     board = boardDAO.insertOne(board);
-    return new RedirectView("/read/" + board.getSequence());
+    mav.setViewName("redirect:/" + board.getSequence());
+
+    return mav;
   }
 }

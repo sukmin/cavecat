@@ -6,6 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="/resources/img/favicon.gif" rel="icon" type="image/gif" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>글 목록</title>
 	
@@ -42,7 +43,7 @@
 							<c:forEach items="${boards}" var="board">
 							<tr>
 								<td><c:out value="${board.sequence}"/></td>
-								<td><a href="/read/${board.sequence}"><c:out value="${board.title}"/></a></td>
+								<td><a href="/${board.sequence}"><c:out value="${board.title}"/></a></td>
 							</tr>
 							</c:forEach>
 						</tbody>
