@@ -6,8 +6,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="/resources/img/favicon.gif" rel="icon" type="image/gif" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>글 목록</title>
+	<title>CAVECAT::읽기</title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -19,6 +20,11 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">cavecat</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logout">Logout</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -34,8 +40,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-right">
-					<a class="btn btn-default" href="/" role="button">글 목록</a> 
-					<a class="btn btn-default" href="/logout" role="button">Logout</a>
+					<a class="btn btn-info" href="/" role="button">글 목록</a> 
 				</p>
 			</div>
 		</div>
