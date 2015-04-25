@@ -1,5 +1,12 @@
 package com.cavecat.model;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -9,6 +16,8 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author serivires
  *
  */
+@Entity
+@Table(name = "board")
 public class Board {
   public static final String BOARDS = "boards";
   public static final String BOARD = "board";
@@ -17,12 +26,17 @@ public class Board {
   public static final String PARAM_TEXT = "text";
   public static final String PARAM_ID = "id";
 
+  @Id
+  @GeneratedValue
+  @Column(name = "seq", unique = true)
   private Long sequence = 0L;
 
   @NotBlank
+  @Column(name = "title", length = 1000)
   private String title;
 
   @NotBlank
+  @Column(name = "content")
   private String text;
 
   public Board() {}

@@ -38,7 +38,7 @@ public class BoardController {
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public ModelAndView list() {
     ModelAndView mav = new ModelAndView("/board/list");
-    mav.addObject(Board.BOARDS, boardDAO.selectList());
+    mav.addObject(Board.BOARDS, boardDAO.selectAll());
     return mav;
   }
 
@@ -47,7 +47,7 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/read");
     logger.debug("board id by {}", id);
 
-    Board board = boardDAO.selectOne(id);
+    Board board = boardDAO.select(id);
     board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
     PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
     board.setText(processor.markdownToHtml(HtmlUtils.htmlEscape(board.getText(), "utf-8")));
@@ -70,8 +70,8 @@ public class BoardController {
       return mav;
     }
 
-    board = boardDAO.insertOne(board);
-    mav.setViewName("redirect:/" + board.getSequence());
+    Long sequence = boardDAO.insert(board);
+    mav.setViewName("redirect:/" + sequence);
 
     return mav;
   }

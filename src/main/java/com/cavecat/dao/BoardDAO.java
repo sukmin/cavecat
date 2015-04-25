@@ -1,42 +1,19 @@
 package com.cavecat.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.cavecat.model.Board;
 
-@Repository
-public class BoardDAO {
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
+public interface BoardDAO {
 
-  public List<Board> selectList() {
-    return jdbcTemplate.query("SELECT * FROM board ORDER By seq DESC", this::mapBoard);
-  }
+  public List<Board> selectAll();
 
-  public Board selectOne(Long sequence) {
-    return jdbcTemplate.queryForObject("SELECT * FROM board WHERE seq = ?",
-        new Object[] {sequence}, this::mapBoard);
-  }
+  public Board select(Long sequence);
 
-  private Board mapBoard(ResultSet rs, int rowNum) throws SQLException {
-    Board board = new Board();
-    board.setSequence(rs.getLong("seq"));
-    board.setTitle(rs.getString("title"));
-    board.setText(rs.getString("content"));
-    return board;
-  }
+  public Long insert(Board board);
 
-  public Board insertOne(Board board) {
-    jdbcTemplate.update("INSERT INTO board(title,content) VALUES(?,?)",
-        new Object[] {board.getTitle(), board.getText()});
+  public Board update(Board board);
 
-    board.setSequence(jdbcTemplate.queryForObject("SELECT last_insert_id()", Long.class));
-    return board;
-  }
+  public void delete(Board board);
+
 }
