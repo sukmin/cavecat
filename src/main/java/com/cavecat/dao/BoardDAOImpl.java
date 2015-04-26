@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class BoardDAOImpl implements BoardDAO {
   @Override
   public List<Board> selectAll() {
     Session session = sessionFactory.openSession();
-    return (List<Board>) session.createCriteria(Board.class).list();
+    return (List<Board>) session.createCriteria(Board.class).addOrder(Order.desc("sequence")).list();
   }
 
   @Override
