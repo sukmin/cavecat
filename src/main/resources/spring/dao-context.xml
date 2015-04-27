@@ -4,28 +4,33 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="#{dataSourceProperties['url']}" />
-		<property name="username" value="#{dataSourceProperties['username']}" />
-		<property name="password" value="#{dataSourceProperties['password']}" />
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" 	value="com.mysql.jdbc.Driver" />
+		<property name="url" 				value="#{dataSourceProperties['url']}" />
+		<property name="username" 			value="#{dataSourceProperties['username']}" />
+		<property name="password" 			value="#{dataSourceProperties['password']}" />
+		<property name="initialSize" 		value="3"/>
+		<property name="minIdle" 			value="3"/>
+		<property name="maxIdle" 			value="10"/>
 	</bean>
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-	    <property name="dataSource" ref="dataSource" />
-	    <property name="packagesToScan" value="com.cavecat" />
-	    <property name="hibernateProperties">
-	        <props>
-	            <prop key="dialect" >org.hibernate.dialect.MySQLInnoDBDialect</prop>
-	            <prop key="connection.pool_size">15</prop>
-	            <prop key="current_session_context_class">thread</prop>
-	            <prop key="show_sql">true</prop>
-	            <prop key="hibernate.format_sql">true</prop>
-	        </props>
-	    </property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.cavecat" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect" >org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<prop key="connection.pool_size">15</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
 	</bean>
-
-	<tx:annotation-driven />
-
-
+	
+	<bean id="hibernateTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 </beans>
