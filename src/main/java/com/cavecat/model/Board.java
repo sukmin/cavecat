@@ -1,13 +1,18 @@
 package com.cavecat.model;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -38,6 +43,28 @@ public class Board {
   @NotBlank
   @Column(name = "content")
   private String text;
+
+  @Column(name = "read_count")
+  private Long readCount;
+
+  @Column(name = "reg_id", updatable = false)
+  private String registor;
+
+  @Column(name = "mod_id")
+  private String modifier;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @org.hibernate.annotations.Generated(value = GenerationTime.ALWAYS)
+  @Column(name = "reg_ymdt", updatable = false)
+  private Date registeredDate;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @org.hibernate.annotations.Generated(value = GenerationTime.ALWAYS)
+  @Column(name = "mod_ymdt")
+  private Date modifiedDate;
+
+  @Column(name = "del_yn", nullable = false)
+  private String delYn = "n";
 
   public Board() {}
 
@@ -74,6 +101,56 @@ public class Board {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+
+
+  public Long getReadCount() {
+    return readCount;
+  }
+
+  public void setReadCount(Long readCount) {
+    this.readCount = readCount;
+  }
+
+  public String getRegistor() {
+    return registor;
+  }
+
+  public void setRegistor(String registor) {
+    this.registor = registor;
+  }
+
+  public String getModifier() {
+    return modifier;
+  }
+
+  public void setModifier(String modifier) {
+    this.modifier = modifier;
+  }
+
+  public Date getRegisteredDate() {
+    return registeredDate;
+  }
+
+  public void setRegisteredDate(Date registeredDate) {
+    this.registeredDate = registeredDate;
+  }
+
+  public Date getModifiedDate() {
+    return modifiedDate;
+  }
+
+  public void setModifiedDate(Date modifiedDate) {
+    this.modifiedDate = modifiedDate;
+  }
+
+  public String getDelYn() {
+    return delYn;
+  }
+
+  public void setDelYn(String delYn) {
+    this.delYn = delYn;
   }
 
   @Override
