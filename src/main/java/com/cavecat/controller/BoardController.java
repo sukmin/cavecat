@@ -1,5 +1,6 @@
 package com.cavecat.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.pegdown.Extensions;
@@ -18,6 +19,7 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.cavecat.dao.BoardDAO;
 import com.cavecat.model.Board;
+import com.cavecat.model.User;
 
 @Controller
 public class BoardController {
@@ -48,6 +50,8 @@ public class BoardController {
     logger.debug("board id by {}", id);
 
     Board board = boardDAO.select(id);
+    // boardDAO.updateCount(id);
+
     board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
     PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
     board.setText(processor.markdownToHtml(HtmlUtils.htmlEscape(board.getText(), "utf-8")));
@@ -62,7 +66,13 @@ public class BoardController {
   }
 
   @RequestMapping(value = "/write", method = RequestMethod.POST)
-  public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult) {
+  public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult,
+      HttpSession session) {
+
+    String id = (String) session.getAttribute(User.PARAM_ID);
+    board.setRegistor(id);
+    board.setModifier(id);
+
     ModelAndView mav = new ModelAndView();
     if (BindingResult.hasErrors()) {
       mav.addObject("board", board);

@@ -45,7 +45,7 @@ public class Board {
   private String text;
 
   @Column(name = "read_count")
-  private Long readCount;
+  private Long readCount = 0L;
 
   @Column(name = "reg_id", updatable = false)
   private String registor;
@@ -54,7 +54,7 @@ public class Board {
   private String modifier;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @org.hibernate.annotations.Generated(value = GenerationTime.ALWAYS)
+  @org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
   @Column(name = "reg_ymdt", updatable = false)
   private Date registeredDate;
 

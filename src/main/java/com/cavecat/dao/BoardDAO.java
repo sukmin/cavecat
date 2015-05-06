@@ -2,6 +2,7 @@ package com.cavecat.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -48,6 +49,16 @@ public class BoardDAO {
     session.update(board);
     session.flush();
     return board;
+  }
+
+  public void updateCount(Long id) {
+    Session session = sessionFactory.openSession();
+    Query query =
+        session.createSQLQuery("UPDATE board SET read_count = read_count + 1 WHERE seq = :id");
+    query.setParameter("id", id);
+    query.executeUpdate();
+    session.flush();
+
   }
 
   public void delete(Board board) {
