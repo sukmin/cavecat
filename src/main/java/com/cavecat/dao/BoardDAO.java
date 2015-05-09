@@ -2,12 +2,9 @@ package com.cavecat.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.cavecat.model.Board;
 
@@ -18,52 +15,36 @@ import com.cavecat.model.Board;
  * @author sukmin
  *
  */
-@Component
+@Repository
 public class BoardDAO {
 
+  private static final String NAMESPACE = BoardDAO.class.getPackage().getName() + ".BoardDAO.";
+
   @Autowired
-  private SessionFactory sessionFactory;
+  private SqlSessionTemplate sqlSessionTemplate;
 
-  @SuppressWarnings("unchecked")
   public List<Board> selectAll() {
-    Session session = sessionFactory.openSession();
-
-    return (List<Board>) session.createCriteria(Board.class) //
-        .addOrder(Order.desc("sequence")) //
-        .list();
+    return sqlSessionTemplate.selectList(NAMESPACE + "selectAll");
   }
 
-  public Board select(Long sequence) {
-    Session session = sessionFactory.openSession();
-    return (Board) session.get(Board.class, sequence);
+  public Board selectOne(Long sequence) {
+    return sqlSessionTemplate.selectOne(NAMESPACE + "selectOne", sequence);
   }
 
   public Long insert(Board board) {
-    Session session = sessionFactory.openSession();
-    session.save(board);
+    sqlSessionTemplate.insert(NAMESPACE + "insert", board);
     return board.getSequence();
   }
 
-  public Board update(Board board) {
-    Session session = sessionFactory.openSession();
-    session.update(board);
-    session.flush();
-    return board;
+  public int update(Board board) {
+    return sqlSessionTemplate.update(NAMESPACE + "update", board);
   }
 
-  public void updateCount(Long id) {
-    Session session = sessionFactory.openSession();
-    Query query =
-        session.createSQLQuery("UPDATE board SET read_count = read_count + 1 WHERE seq = :id");
-    query.setParameter("id", id);
-    query.executeUpdate();
-    session.flush();
-
+  public void updateCount(Long sequence) {
+    sqlSessionTemplate.update(NAMESPACE + "updateCount board", sequence);
   }
 
-  public void delete(Board board) {
-    Session session = sessionFactory.openSession();
-    session.delete(board);
-    session.flush();
+  public void delete(Long sequence) {
+    sqlSessionTemplate.delete(NAMESPACE + "delete", sequence);
   }
 }
