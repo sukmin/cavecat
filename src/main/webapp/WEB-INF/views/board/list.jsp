@@ -16,8 +16,9 @@
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 		body { padding-top: 70px; }
-		table { text-align: center; }
-		th { text-align: center; }
+		table { width:100%; }
+		table td {  text-align: center; }
+		table th { text-align: center; }
 	</style>
 </head>
 <body>
@@ -37,20 +38,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table table-striped table-bordered">
-					<colgroup>
-    					<col width="30">
-    					<col width="*">
-    					<col width="100">
-    					<col width="150">
-    					<col width="100">
-  					</colgroup>
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
+							<th style="width:5%">#</th>
+							<th style="width:65%">제목</th>
+							<th style="width:10%">작성자</th>
+							<th style="width:10%">작성일</th>
+							<th style="width:10%">조회수</th>
 						</tr>
 					</thead>
 					<c:if test="${empty boards}">
