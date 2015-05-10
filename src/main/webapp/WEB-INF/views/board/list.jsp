@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!doctype html>
 <html lang="ko">
@@ -13,7 +14,11 @@
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
-	<style type="text/css">body { padding-top: 70px; }</style>
+	<style type="text/css">
+		body { padding-top: 70px; }
+		table { text-align: center; }
+		th { text-align: center; }
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -31,11 +36,21 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-striped">
+				<table class="table table-striped table-bordered">
+					<colgroup>
+    					<col width="30">
+    					<col width="*">
+    					<col width="100">
+    					<col width="150">
+    					<col width="100">
+  					</colgroup>
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
 						</tr>
 					</thead>
 					<c:if test="${empty boards}">
@@ -49,6 +64,9 @@
 							<tr>
 								<td><c:out value="${board.sequence}"/></td>
 								<td><a href="/${board.sequence}"><c:out value="${board.title}"/></a></td>
+								<td><c:out value="${board.registor}"/></td>
+								<td><fmt:formatDate value="${board.registeredDate}" pattern="yyyy-MM-dd"/>​</td>
+								<td><c:out value="${board.readCount}"/></td>
 							</tr>
 							</c:forEach>
 						</tbody>

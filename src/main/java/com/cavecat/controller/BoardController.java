@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
-import com.cavecat.dao.BoardDAO;
+import com.cavecat.bo.BoardBO;
 import com.cavecat.model.Board;
 import com.cavecat.model.User;
 
@@ -25,11 +25,11 @@ import com.cavecat.model.User;
 public class BoardController {
   private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-  @Autowired
-  private BoardDAO boardDAO;
+  private BoardBO boardBO;
 
-  public void setBoardDAO(BoardDAO boardDAO) {
-    this.boardDAO = boardDAO;
+  @Autowired
+  public BoardController(BoardBO boardBO) {
+    this.boardBO = boardBO;
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -40,17 +40,16 @@ public class BoardController {
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public ModelAndView list() {
     ModelAndView mav = new ModelAndView("/board/list");
-    mav.addObject(Board.BOARDS, boardDAO.selectAll());
+    mav.addObject(Board.BOARDS, boardBO.getBoardes());
     return mav;
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ModelAndView read(@PathVariable Long id) {
+  @RequestMapping(value = "/{sequence}", method = RequestMethod.GET)
+  public ModelAndView read(@PathVariable Long sequence) {
     ModelAndView mav = new ModelAndView("/board/read");
-    logger.debug("board id by {}", id);
+    logger.debug("board id by {}", sequence);
 
-    Board board = boardDAO.selectOne(id);
-    // boardDAO.updateCount(id);
+    Board board = boardBO.getBoard(sequence);
 
     board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
     PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
@@ -79,7 +78,7 @@ public class BoardController {
       return mav;
     }
 
-    Long sequence = boardDAO.insert(board);
+    Long sequence = boardBO.addBoard(board);
     mav.setViewName("redirect:/" + sequence);
 
     return mav;

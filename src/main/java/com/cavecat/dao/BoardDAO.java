@@ -41,10 +41,10 @@ public class BoardDAO {
   }
 
   public void updateCount(Long sequence) {
-    sqlSessionTemplate.update(NAMESPACE + "updateCount board", sequence);
+    sqlSessionTemplate.update(NAMESPACE + "updateCount", sequence);
   }
 
-  public void delete(Long sequence) {
-    sqlSessionTemplate.delete(NAMESPACE + "delete", sequence);
+  public int delete(Long sequence) {
+    return sqlSessionTemplate.delete(NAMESPACE + "delete", sequence);
   }
 }
