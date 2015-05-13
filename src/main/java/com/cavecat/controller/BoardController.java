@@ -65,7 +65,8 @@ public class BoardController {
   }
 
   @RequestMapping(value = "/write", method = RequestMethod.POST)
-  public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult, HttpSession session) {
+  public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult,
+      HttpSession session) {
 
     String id = (String) session.getAttribute(User.PARAM_ID);
     board.setRegistor(id);
