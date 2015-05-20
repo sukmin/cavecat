@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
+
   private String redirectPath = "/";
 
   public void setRedirectPath(String redirectPath) {

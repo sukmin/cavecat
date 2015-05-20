@@ -12,7 +12,7 @@
 			reg_id AS registor,
 			mod_id AS modifier,
 			reg_ymdt AS registeredDate,
-			mod_ymdt AS modifiedDate
+			mod_ymdt AS modifiedDatexa
 		FROM
 			board
 		WHERE

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cavecat.dao.UserDAO">
+
+	<select id="selectCountForExist" parameterType="user" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			cc_user
+		WHERE
+			cc_id = #{id}
+			AND cc_passwd = password(#{passwd})
+	</select>
+	
+</mapper>

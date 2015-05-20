@@ -1,6 +1,7 @@
 package com.cavecat.model;
 
 
+import java.net.HttpURLConnection;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -46,6 +47,8 @@ public class Board {
   public Board(String title, String text) {
     this.title = title;
     this.text = text;
+
+    HttpURLConnection a;
   }
 
   public Board(Long sequnece, String title, String text) {

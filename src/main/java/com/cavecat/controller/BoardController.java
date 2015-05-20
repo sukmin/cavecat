@@ -3,8 +3,6 @@ package com.cavecat.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.pegdown.Extensions;
-import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.HtmlUtils;
 
 import com.cavecat.bo.BoardBO;
 import com.cavecat.model.Board;
@@ -51,9 +48,7 @@ public class BoardController {
 
     Board board = boardBO.getBoard(sequence);
 
-    board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
-    PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-    board.setText(processor.markdownToHtml(HtmlUtils.htmlEscape(board.getText(), "utf-8")));
+
     mav.addObject(Board.BOARD, board);
 
     return mav;
