@@ -2,14 +2,20 @@ package com.cavecat.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.ibatis.type.Alias;
+import org.hibernate.validator.constraints.NotEmpty;
 
+@Alias("user")
 public class User {
   public static final String USER = "user";
   public static final String PARAM_ID = "id";
   public static final String PARAM_PASSWD = "passwd";
   public static final String PARAM_LOGIN_FAILED = "loginFailed";
 
+  @NotEmpty
   private String id;
+
+  @NotEmpty
   private String passwd;
 
   public User() {};

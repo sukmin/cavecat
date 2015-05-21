@@ -1,6 +1,11 @@
 package com.cavecat.model;
 
+
+import java.net.HttpURLConnection;
+import java.util.Date;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.ibatis.type.Alias;
 
 /**
  * 게시글의 기본 정보를 저장한다.
@@ -8,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author serivires
  *
  */
+@Alias("board")
 public class Board {
   public static final String BOARDS = "boards";
   public static final String BOARD = "board";
@@ -16,15 +22,33 @@ public class Board {
   public static final String PARAM_TEXT = "text";
   public static final String PARAM_ID = "id";
 
-  private Long sequence = 0L;
+  private Long sequence;
+
   private String title;
+
   private String text;
+
+  private Long readCount;
+
+  private String shortUrl;
+
+  private String registor;
+
+  private String modifier;
+
+  private Date registeredDate;
+
+  private Date modifiedDate;
+
+  private String delYn;
 
   public Board() {}
 
   public Board(String title, String text) {
     this.title = title;
     this.text = text;
+
+    HttpURLConnection a;
   }
 
   public Board(Long sequnece, String title, String text) {
@@ -55,6 +79,62 @@ public class Board {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  public Long getReadCount() {
+    return readCount;
+  }
+
+  public void setReadCount(Long readCount) {
+    this.readCount = readCount;
+  }
+
+  public String getShortUrl() {
+    return shortUrl;
+  }
+
+  public void setShortUrl(String shortUrl) {
+    this.shortUrl = shortUrl;
+  }
+
+  public String getRegistor() {
+    return registor;
+  }
+
+  public void setRegistor(String registor) {
+    this.registor = registor;
+  }
+
+  public String getModifier() {
+    return modifier;
+  }
+
+  public void setModifier(String modifier) {
+    this.modifier = modifier;
+  }
+
+  public Date getRegisteredDate() {
+    return registeredDate;
+  }
+
+  public void setRegisteredDate(Date registeredDate) {
+    this.registeredDate = registeredDate;
+  }
+
+  public Date getModifiedDate() {
+    return modifiedDate;
+  }
+
+  public void setModifiedDate(Date modifiedDate) {
+    this.modifiedDate = modifiedDate;
+  }
+
+  public String getDelYn() {
+    return delYn;
+  }
+
+  public void setDelYn(String delYn) {
+    this.delYn = delYn;
   }
 
   @Override

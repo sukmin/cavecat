@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+	<!-- 
+		secretKey 길이는 128bit, 256bit 입니다.
+		256bit 사용시 jdk 패치가 필요합니다.
+		http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+	-->
+	<entry key="secretKey">1234567890123456</entry>
+	
+	<!-- ivParameter 길이는 128bit 입니다.  -->
+	<entry key="ivParameter">1234567890123456</entry>
+</properties>
