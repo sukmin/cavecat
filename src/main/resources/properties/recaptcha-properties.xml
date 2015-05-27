@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+	<entry key="siteKey">6LdVZQcTAAAAAKJoY2ltpoRIO2aKN-gG2vz5SIWD</entry>
+	<entry key="secretKey"></entry>
+	<entry key="verifyingUri">https://www.google.com/recaptcha/api/siteverify</entry>
+</properties>

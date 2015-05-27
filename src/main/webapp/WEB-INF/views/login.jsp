@@ -12,6 +12,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<style type="text/css">
 		body {
 			padding-top: 40px;
@@ -80,12 +81,21 @@
 			<input type="text" id="inputID" name="id" class="form-control" placeholder="ID" required autofocus>
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" required>
+			<input type="hidden" id="captchaResponse" name="captchaResponse">
 			<a class="btn btn-lg btn-default btn-block" href="/signup">Sign up</a>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<button id="submitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
+		<div class="row row-centered">
+			<div class="g-recaptcha" style="width:304px; margin: 0 auto;" data-sitekey="${reCaptchaSiteKey}"></div>
+		</div>
 	</div> <!-- /container -->
 	
 	<script src="/resources/js/jquery-1.11.2.min.js"></script>
 	<script src="/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$("#submitButton").click(function () {
+			$("#captchaResponse").val(grecaptcha.getResponse());
+		});
+	</script>
 </body>
 </html>

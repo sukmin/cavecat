@@ -9,6 +9,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * AES 방식을 사용하여 암호화, 복호화 기능을 제공하는 클래스입니다.
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
  * @author serivires
  * 
  */
+@Component
 public class EncryptionUtils {
   private final static Logger logger = LoggerFactory.getLogger(EncryptionUtils.class);
 
@@ -29,10 +32,12 @@ public class EncryptionUtils {
   private final static String CIPHER_ALGORITHM = "AES";
   private final static String CHARSET_NAME = "UTF-8";
 
+  @Value("#{encryptionProperties['secretKey']}")
   public void setSecretKey(String secretKey) {
     EncryptionUtils.secretKey = secretKey;
   }
 
+  @Value("#{encryptionProperties['ivParameter']}")
   public void setIvParameter(String ivParameter) {
     IvParameter = ivParameter;
   }
