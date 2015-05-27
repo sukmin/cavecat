@@ -3,6 +3,7 @@ CREATE TABLE cc_user( seq int auto_increment not null  primary key,
 	cc_email varchar(500) not null,
 	cc_passwd varchar(500) not null,
 	reg_ymdt datetime default CURRENT_TIMESTAMP,
+	email_validate enum('y','n') default 'n',
 	del_yn enum('y','n') default 'n'	
 );
 

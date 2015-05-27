@@ -21,6 +21,7 @@
 			<mapping path="/**"/>
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/login"/>
+			<exclude-mapping path="/signup"/>
 			<beans:bean class="com.cavecat.interceptor.LoginCheckInterceptor">
 				<beans:property name="redirectPath" value="/login"/>
 			</beans:bean>
