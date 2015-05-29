@@ -62,17 +62,16 @@ public class BoardController {
   @RequestMapping(value = "/write", method = RequestMethod.POST)
   public ModelAndView write(@Valid @ModelAttribute Board board, BindingResult BindingResult,
       HttpSession session) {
-
-    String id = (String) session.getAttribute(User.PARAM_ID);
-    board.setRegistor(id);
-    board.setModifier(id);
-
     ModelAndView mav = new ModelAndView();
     if (BindingResult.hasErrors()) {
       mav.addObject("board", board);
       mav.setViewName("/board/form");
       return mav;
     }
+
+    String id = (String) session.getAttribute(User.PARAM_ID);
+    board.setRegistor(id);
+    board.setModifier(id);
 
     Long sequence = boardBO.addBoard(board);
     mav.setViewName("redirect:/" + sequence);

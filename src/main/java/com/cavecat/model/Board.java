@@ -1,11 +1,11 @@
 package com.cavecat.model;
 
 
-import java.net.HttpURLConnection;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.ibatis.type.Alias;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 게시글의 기본 정보를 저장한다.
@@ -24,8 +24,10 @@ public class Board {
 
   private Long sequence;
 
+  @NotBlank
   private String title;
 
+  @NotBlank
   private String text;
 
   private Long readCount;
@@ -47,8 +49,6 @@ public class Board {
   public Board(String title, String text) {
     this.title = title;
     this.text = text;
-
-    HttpURLConnection a;
   }
 
   public Board(Long sequnece, String title, String text) {
