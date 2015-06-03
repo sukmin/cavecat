@@ -12,7 +12,6 @@
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/resources/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<style type="text/css">
 		body {
 			padding-top: 40px;
@@ -50,7 +49,7 @@
 			border-bottom-left-radius: 0;
 		}
 		.form-signin input[type="password"] {
-			margin-bottom: 10px;
+			margin-bottom: -1px;
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
 		}
@@ -72,29 +71,47 @@
 		</div>
 	</nav>
 	<div class="container">
-		<form class="form-signin" action="/login" method="post">
-			<h4 class="form-signin-heading">
-				<c:if test="${not loginFailed}"><p>로그인이 필요합니다.</p></c:if>
-				<c:if test="${loginFailed}"><p>로그인이 실패하였습니다.</p></c:if>
-			</h4>
-			<label for="inputID" class="sr-only">Email address</label>
+		<form class="form-signin" action="/signup" method="put" id="form_signup">
+			<label for="inputID" class="sr-only">ID</label>
 			<input type="text" id="inputID" name="id" class="form-control" placeholder="ID" required autofocus>
+			<label for="inputEmail" class="sr-only">Email address</label>
+			<input type="text" id="inputEmail" name="email" class="form-control" placeholder="email" required autofocus>
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" required>
-			<input type="hidden" id="captchaResponse" name="captchaResponse">
-			<a class="btn btn-lg btn-default btn-block" href="/signup">Sign up</a>
-			<button id="submitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<label for="inputPassword2" class="sr-only">Password</label>
+			<input type="password" id="inputPassword2" name="passwd2" class="form-control" placeholder="Password" required>
+			<button class="btn btn-lg btn-default btn-block" id="button_signup">Sign up</button>
 		</form>
-		<div class="row row-centered">
-			<div class="g-recaptcha" style="width:304px; margin: 0 auto;" data-sitekey="${reCaptchaSiteKey}"></div>
-		</div>
 	</div> <!-- /container -->
 	
 	<script src="/resources/js/jquery-1.11.2.min.js"></script>
 	<script src="/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$("#submitButton").click(function () {
-			$("#captchaResponse").val(grecaptcha.getResponse());
+		jQuery("#button_signup").click(function(event){
+			event.preventDefault();
+			
+			if(jQuery("#inputID").val() == ""){
+				alert("ID는 필수입니다.");
+				return false;
+			}
+			
+			if(jQuery("#inputEmail").val() == ""){
+				alert("email은 필수입니다.");
+				return false;
+			}
+			
+			if(jQuery("#inputPassword").val() == "" && jQuery("#inputPassword2").val() == ""){
+				alert("password는 필수입니다.");
+				return false;
+			}
+			
+			if(jQuery("#inputPassword").val() != jQuery("#inputPassword2").val()){
+				alert("password가 일치하지 않습니다.");
+				return false;
+			}
+			
+			jQuery("#form_signup").submit();
+			
 		});
 	</script>
 </body>

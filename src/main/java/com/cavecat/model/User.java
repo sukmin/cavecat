@@ -18,6 +18,8 @@ public class User {
   @NotEmpty
   private String passwd;
 
+  private String email;
+
   public User() {};
 
   public User(String id, String passwd) {
@@ -43,6 +45,14 @@ public class User {
 
   public void setPasswd(String passwd) {
     this.passwd = passwd;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   @Override

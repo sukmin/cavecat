@@ -12,13 +12,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cavecat.bo.UserBO;
+import com.cavecat.common.ReCaptchaUtils;
 import com.cavecat.model.User;
 
+/**
+ * 
+ * @author serivires
+ *
+ */
 @Controller
-public class AccountController {
+public class AuthController {
   private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
   @Autowired
@@ -26,16 +33,19 @@ public class AccountController {
 
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public ModelAndView login() {
-    return new ModelAndView("/login");
+    ModelAndView mav = new ModelAndView("/login");
+    mav.addObject("reCaptchaSiteKey", ReCaptchaUtils.getSiteKey());
+    return mav;
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public ModelAndView login(@ModelAttribute @Valid User user, BindingResult bindingResult,
-      HttpServletRequest request) {
-
+  public ModelAndView login(@ModelAttribute @Valid User user, @RequestParam String captchaResponse,
+      BindingResult bindingResult, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
-    if (bindingResult.hasErrors() || userBO.isNotMember(user)) {
+
+    if (isNotValidInputParameter(user, captchaResponse, bindingResult)) {
       mav.addObject(User.PARAM_LOGIN_FAILED, true);
+      mav.addObject("reCaptchaSiteKey", ReCaptchaUtils.getSiteKey());
       mav.setViewName("/login");
       return mav;
     }
@@ -47,6 +57,31 @@ public class AccountController {
     logger.debug("login by {}", user.getId());
     mav.setViewName("redirect:/list");
     return mav;
+  }
+
+  /**
+   * 사용자가 입력한 로그인 정보를 확인합니다.
+   * 
+   * @param user
+   * @param captchaResponse
+   * @param bindingResult
+   * @return boolean
+   */
+  private boolean isNotValidInputParameter(User user, String captchaResponse,
+      BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return true;
+    }
+
+    if (ReCaptchaUtils.isPassed(captchaResponse) == false) {
+      return true;
+    }
+
+    if (userBO.isNotMember(user)) {
+      return true;
+    }
+
+    return false;
   }
 
   @RequestMapping(value = "/logout", method = RequestMethod.GET)
