@@ -11,6 +11,8 @@
 
 #CaveCat Wiki(가칭)
 
+[![Join the chat at https://gitter.im/sukmin/cavecat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sukmin/cavecat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## 좋은 JAVA GFM 라이브러리 찾기
 
 ## DB 모델링
