@@ -13,7 +13,9 @@
 
 [![Join the chat at https://gitter.im/sukmin/cavecat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sukmin/cavecat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## 좋은 JAVA GFM 라이브러리 찾기
+## GFM을 지원하는 라이브러리 선정
+1. [Strapdown.js](http://strapdownjs.com/)
+2. [marked](https://github.com/chjj/marked)
 
 ## DB 모델링
 1. 키워드 테이블( 키워드만 저장하는 테이블 )
