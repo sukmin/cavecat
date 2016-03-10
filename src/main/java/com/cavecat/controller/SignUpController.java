@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cavecat.model.User;
-
+/**
+ * 
+ * @author killroad
+ */
 @Controller
 public class SignUpController {
-
 
   @RequestMapping(value = "/signup", method = RequestMethod.GET)
   public String form() {

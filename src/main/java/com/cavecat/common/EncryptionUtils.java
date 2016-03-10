@@ -10,7 +10,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
  * AES 방식을 사용하여 암호화, 복호화 기능을 제공하는 클래스입니다.
@@ -22,25 +24,19 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
+@ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
 public class EncryptionUtils {
   private final static Logger logger = LoggerFactory.getLogger(EncryptionUtils.class);
 
+  @Value("#{encryption.secretKey}")
   private static String secretKey;
+
+  @Value("#{encryption.ivParameter}")
   private static String IvParameter;
 
   private final static String TRANSFORMATION_MODE = "AES/CBC/PKCS5Padding";
   private final static String CIPHER_ALGORITHM = "AES";
   private final static String CHARSET_NAME = "UTF-8";
-
-  @Value("#{encryptionProperties['secretKey']}")
-  public void setSecretKey(String secretKey) {
-    EncryptionUtils.secretKey = secretKey;
-  }
-
-  @Value("#{encryptionProperties['ivParameter']}")
-  public void setIvParameter(String ivParameter) {
-    IvParameter = ivParameter;
-  }
 
   /**
    * rawData를 암호화 하여 반환합니다.

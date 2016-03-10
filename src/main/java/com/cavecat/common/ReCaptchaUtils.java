@@ -5,8 +5,10 @@ import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -19,40 +21,31 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @Component
+@ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
 public final class ReCaptchaUtils {
+  @Value("#{recaptcha.siteKey}")
   private static String siteKey;
+
+  @Value("#{recaptcha.secretKey}")
   private static String secretKey;
+
+  @Value("#{recaptcha.verifyingUri}")
   private static String verifyingUri;
+
   private static RestTemplate restTemplate;
 
   private ReCaptchaUtils() {}
-
-  @Value("#{recaptchaProperties['siteKey']}")
-  public void setSiteKey(String siteKey) {
-    ReCaptchaUtils.siteKey = siteKey;
-  }
-
-  public static String getSiteKey() {
-    return siteKey;
-  }
-
-
-  @Value("#{recaptchaProperties['secretKey']}")
-  public void setSecretKey(String secretKey) {
-    ReCaptchaUtils.secretKey = secretKey;
-  }
-
-  @Value("#{recaptchaProperties['verifyingUri']}")
-  public void setVerifyingUri(String verifyingUri) {
-    ReCaptchaUtils.verifyingUri = verifyingUri;
-  }
 
   @Autowired(required = true)
   public void setRestTemplate(RestTemplate restTemplate) {
     ReCaptchaUtils.restTemplate = restTemplate;
   }
 
-  /**
+  public static String getSiteKey() {
+	return siteKey;
+}
+
+/**
    * 사용자가 응답한 캡챠 값을 검증합니다.
    * 
    * @param captchaResponse

@@ -30,7 +30,7 @@ public class AuthController {
 
   @Autowired
   private UserBO userBO;
-
+  
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public ModelAndView login() {
     ModelAndView mav = new ModelAndView("/login");
@@ -73,9 +73,12 @@ public class AuthController {
       return true;
     }
 
-    if (ReCaptchaUtils.isPassed(captchaResponse) == false) {
+    /**
+     * TODO: 구글 리캡챠를 사용하기 위해서는 도메인이 필요함
+     */
+/*    if (ReCaptchaUtils.isPassed(captchaResponse) == false) {
       return true;
-    }
+    }*/
 
     if (userBO.isNotMember(user)) {
       return true;

@@ -1,20 +1,21 @@
+/*
+ * @(#)UserDAO.java $version 2016. 3. 9.
+ *
+ * Copyright 2007 NHN Corp. All rights Reserved. 
+ * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
 package com.cavecat.dao;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cavecat.model.User;
 
-@Repository
-public class UserDAO {
-
-  private static final String NAMESPACE = UserDAO.class.getPackage().getName() + ".UserDAO.";
-
-  @Autowired
-  private SqlSessionTemplate sqlSessionTemplate;
-
-  public int selectCountForExist(User user) {
-    return sqlSessionTemplate.selectOne(NAMESPACE + "selectCountForExist", user);
-  }
+/**
+ * @author NTS YongJu Choi
+ */
+public interface UserDAO extends JpaRepository<User, Long> {
+  public List<User> findByIdAndPasswd(String id, String passwd);
 }

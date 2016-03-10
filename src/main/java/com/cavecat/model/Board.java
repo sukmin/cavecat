@@ -3,8 +3,17 @@ package com.cavecat.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -13,7 +22,8 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author serivires
  *
  */
-@Alias("board")
+@Entity
+@Table(name="board")
 public class Board {
   public static final String BOARDS = "boards";
   public static final String BOARD = "board";
@@ -22,27 +32,42 @@ public class Board {
   public static final String PARAM_TEXT = "text";
   public static final String PARAM_ID = "id";
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "seq", unique = true, nullable = false)
   private Long sequence;
 
   @NotBlank
+  @Column(name = "title", length = 1000, nullable = false)
   private String title;
 
   @NotBlank
+  @Lob
+  @Column(name = "content", nullable = false)
   private String text;
 
-  private Long readCount;
+  @Column(name = "read_count", nullable = false)
+  private Long readCount = 0L;
 
+  @Column(name = "short_url", length= 1000, nullable = true)
   private String shortUrl;
 
+  @Column(name = "reg_id", length = 30, nullable = true)
   private String registor;
 
+  @Column(name = "mod_id", length = 30, nullable = true)
   private String modifier;
 
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "reg_ymdt", nullable = false)
   private Date registeredDate;
 
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "mod_ymdt", nullable = true)
   private Date modifiedDate;
 
-  private String delYn;
+  @Column(name = "del_yn", length = 1,  nullable = true)
+  private String delYn = "N";
 
   public Board() {}
 
