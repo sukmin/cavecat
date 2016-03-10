@@ -33,14 +33,14 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">${board.title}</div>
-					<div class="panel-body">${board.text}</div>
+					<div id="text" class="panel-body">${board.text}</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-right">
-					<a class="btn btn-info" href="/" role="button">글 목록</a> 
+					<a class="btn btn-info" href="/" role="button">글 목록</a>
 				</p>
 			</div>
 		</div>
@@ -48,5 +48,10 @@
 	
 	<script src="/resources/js/jquery-1.11.2.min.js"></script>
 	<script src="/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+	<script src="/resources/bootstrap-markdown-2.9.0/js/markdown.js"></script>
+	<script type="text/javascript">
+		var mdHtml = markdown.toHTML($("#text").text());
+		$("#text").html(mdHtml);
+	</script>
 </body>
 </html>

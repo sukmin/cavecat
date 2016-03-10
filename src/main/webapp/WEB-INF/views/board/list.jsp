@@ -49,7 +49,7 @@
 					</thead>
 					<c:if test="${empty boards}">
 						<tbody>
-							<tr><td colspan="2" align="center">작성된 글이 없습니다.</td></tr>
+							<tr><td colspan="5" align="center">작성된 글이 없습니다.</td></tr>
 						</tbody>
 					</c:if>
 					<c:if test="${not empty boards}">
