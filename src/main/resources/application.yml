@@ -5,7 +5,10 @@ spring:
     view:
       prefix: /WEB-INF/views
       suffix: .jsp
+    favicon:
+      enabled: false
   datasource:
+    url: jdbc:h2:file:./cavecat/db/board-db;MODE=MYSQL;MV_STORE=FALSE;MVCC=FALSE
     initial-size: 3
     min-idle: 3
     max-idle: 10
@@ -13,7 +16,8 @@ spring:
     database: h2
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      #ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
   h2:
     console:

@@ -1,6 +1,7 @@
 package com.cavecat.bo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -18,6 +19,11 @@ public class UserBO {
 
   @PostConstruct
   public void init() {
+    List<User> users = userDAO.findByIdAndPasswd("test", "123");
+    if (users.size() > 0) {
+      return;
+    }
+    
     User user1 = new User();
     user1.setId("test");
     user1.setPasswd("123");
@@ -27,7 +33,8 @@ public class UserBO {
   }
 
   public boolean isMember(User user) {
-    return (userDAO.findByIdAndPasswd(user.getId(), user.getPasswd()) != null);
+    List<User> users = userDAO.findByIdAndPasswd(user.getId(), user.getPasswd());
+    return (users.size() == 1);
   }
 
   public boolean isNotMember(User user) {
