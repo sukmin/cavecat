@@ -5,10 +5,9 @@ import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -21,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @Component
-@ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
+@ConfigurationProperties(locations = "classpath:properties/recaptcha.yml")
 public final class ReCaptchaUtils {
   @Value("#{recaptcha.siteKey}")
   private static String siteKey;
@@ -42,10 +41,10 @@ public final class ReCaptchaUtils {
   }
 
   public static String getSiteKey() {
-	return siteKey;
-}
+    return siteKey;
+  }
 
-/**
+  /**
    * 사용자가 응답한 캡챠 값을 검증합니다.
    * 
    * @param captchaResponse
@@ -74,10 +73,9 @@ public final class ReCaptchaUtils {
    */
   private static boolean isValidResponse(ResponseEntity<String> responseEntity) {
     String responseBody = responseEntity.getBody();
-    long resultCount =
-        Arrays.asList(StringUtils.split(responseBody, ",")).stream()
-            .filter((s) -> StringUtils.contains(s, "success"))
-            .filter((s) -> StringUtils.contains(s, "true")).count();
+    long resultCount = Arrays.asList(StringUtils.split(responseBody, ",")).stream()
+        .filter((s) -> StringUtils.contains(s, "success"))
+        .filter((s) -> StringUtils.contains(s, "true")).count();
     return (resultCount == 1);
   }
 

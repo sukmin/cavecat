@@ -19,15 +19,11 @@ import com.cavecat.interceptor.LoginCheckInterceptor;
  * @author serivires
  */
 @Configuration
-public class InterceptorConfig extends WebMvcConfigurerAdapter{
+public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
   @Autowired
   private LoginCheckInterceptor loginCheckInterceptor;
 
-  /**
-   * @param registry
-   * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
-   */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(loginCheckInterceptor)

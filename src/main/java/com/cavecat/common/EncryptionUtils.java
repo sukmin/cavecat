@@ -10,21 +10,17 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * AES 방식을 사용하여 암호화, 복호화 기능을 제공하는 클래스입니다.
  * http://ko.wikipedia.org/wiki/%EA%B3%A0%EA%B8%89_%EC%95%94%ED%98%B8%ED%99%94_%ED%91%9C%EC%A4%80
  * 
- * secretKey, IvParameter는 properties 파일로 주입받습니다.
- * 
  * @author serivires
- * 
  */
 @Component
-@ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
+@ConfigurationProperties(locations = "classpath:properties/encryption.yml")
 public class EncryptionUtils {
   private final static Logger logger = LoggerFactory.getLogger(EncryptionUtils.class);
 

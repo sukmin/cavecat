@@ -18,3 +18,5 @@ hs_err_pid*
 /.springBeans
 **/properties/dataSource-properties.xml
 **/properties/recaptcha-properties.xml
+/.apt_generated/
+/.factorypath
