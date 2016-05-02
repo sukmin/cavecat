@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cavecat.model.User;
 
 /**
- * @author NTS YongJu Choi
+ * @author serivires
  */
 public interface UserDAO extends JpaRepository<User, Long> {
   public List<User> findByIdAndPasswd(String id, String passwd);
