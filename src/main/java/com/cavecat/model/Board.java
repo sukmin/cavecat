@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 게시글의 기본 정보를 저장한다.
- * 
+ *
  * @author serivires
  *
  */
@@ -71,13 +71,17 @@ public class Board {
 
   public Board() {}
 
+  public Board(Long sequence) {
+    this.sequence = sequence;
+  }
+
   public Board(String title, String text) {
     this.title = title;
     this.text = text;
   }
 
-  public Board(Long sequnece, String title, String text) {
-    this.sequence = sequnece;
+  public Board(Long sequence, String title, String text) {
+    this.sequence = sequence;
     this.title = title;
     this.text = text;
   }

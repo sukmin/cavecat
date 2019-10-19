@@ -2,9 +2,10 @@ package com.cavecat.bo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,26 +16,30 @@ import com.cavecat.model.Board;
 
 @Service
 public class BoardBO {
+  private final BoardDAO boardDAO;
 
-  @Autowired
-  private BoardDAO boardDAO;
+  public BoardBO(BoardDAO boardDAO) {
+    this.boardDAO = boardDAO;
+  }
 
   @Transactional
   public Board getBoard(Long sequence) throws DataAccessException {
-    Board board = boardDAO.findOne(sequence);
+    Optional<Board> rawBoard = boardDAO.findOne(Example.of(new Board(sequence)));
 
-    board.setReadCount(board.getReadCount() + 1);
-    board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
+    rawBoard.ifPresent(board -> {
+      board.setReadCount(board.getReadCount() + 1);
+      board.setTitle(HtmlUtils.htmlEscape(board.getTitle(), "utf-8"));
 
-    boardDAO.save(board);
-    board.setText(HtmlUtils.htmlEscape(board.getText()));
+      boardDAO.save(board);
+      board.setText(HtmlUtils.htmlEscape(board.getText()));
+    });
 
-    return board;
+    return rawBoard.orElseGet(Board::new);
   }
 
   @Transactional(readOnly = true)
   public List<Board> getBoardes() throws DataAccessException {
-    return boardDAO.findAll(new Sort(Sort.Direction.DESC, "sequence"));
+    return boardDAO.findAll(Sort.by(Sort.Direction.DESC, "sequence"));
   }
 
   @Transactional
@@ -51,6 +56,6 @@ public class BoardBO {
 
   @Transactional
   public void removeBoard(Long sequence) throws DataAccessException {
-    boardDAO.delete(sequence);
+    boardDAO.delete(new Board(sequence));
   }
 }

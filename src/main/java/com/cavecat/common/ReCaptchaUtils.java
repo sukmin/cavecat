@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -20,20 +20,30 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @Component
-@ConfigurationProperties(locations = "classpath:properties/recaptcha.yml")
+@PropertySource(value = {"classpath:properties/recaptcha.properties"})
 public final class ReCaptchaUtils {
-  @Value("#{recaptcha.siteKey}")
   private static String siteKey;
-
-  @Value("#{recaptcha.secretKey}")
   private static String secretKey;
-
-  @Value("#{recaptcha.verifyingUri}")
   private static String verifyingUri;
 
   private static RestTemplate restTemplate;
 
   private ReCaptchaUtils() {}
+
+  @Value("${recaptcha.siteKey}")
+  private void setSiteKey(String siteKey) {
+    ReCaptchaUtils.siteKey = siteKey;
+  }
+
+  @Value("${recaptcha.secretKey}")
+  private void setSecretKey(String secretKey) {
+    ReCaptchaUtils.secretKey = secretKey;
+  }
+
+  @Value("${recaptcha.verifyingUri}")
+  private void setVerifyingUri(String verifyingUri) {
+    ReCaptchaUtils.verifyingUri = verifyingUri;
+  }
 
   @Autowired(required = true)
   public void setRestTemplate(RestTemplate restTemplate) {
