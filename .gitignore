@@ -20,3 +20,6 @@ hs_err_pid*
 **/properties/recaptcha-properties.xml
 /.apt_generated/
 /.factorypath
+.idea/
+board.iml
+
